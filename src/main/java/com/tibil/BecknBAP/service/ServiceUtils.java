@@ -12,6 +12,7 @@ public class ServiceUtils {
 		
 		Context context = new Context();
 		context.setAction(ActionEnum.SEARCH);
+		context.setCoreVersion("1.0.0");
 		context.setBapId("");
 		context.setBapUri("http://localhost:8080");
 		context.setCity("BLR");

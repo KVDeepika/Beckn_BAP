@@ -1,5 +1,6 @@
 package com.tibil.BecknBAP.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +18,10 @@ public class ServiceRequestFlow extends BaseModel {
 	private String messageId;
 	private String bapId;
 	private String bppId;
+	@Column(columnDefinition = "TEXT")
 	private String data;
 	private String ack;
+	private String action;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private ServiceRequest serviceRequest; 
@@ -35,6 +38,12 @@ public class ServiceRequestFlow extends BaseModel {
 	}
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
+	}
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String action) {
+		this.action = action;
 	}
 	public String getMessageId() {
 		return messageId;

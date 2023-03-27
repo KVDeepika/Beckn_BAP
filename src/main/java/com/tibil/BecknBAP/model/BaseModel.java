@@ -1,34 +1,38 @@
 package com.tibil.BecknBAP.model;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class BaseModel {
-	private Date createdAt;
-	private Date updatedAt;
+	private OffsetDateTime createdAt;
+	private OffsetDateTime updatedAt;
 	
 	public BaseModel() {
 		super();
 	}
 
-	public BaseModel(Date createdAt, Date updatedAt) {
+	public BaseModel(OffsetDateTime createdAt, OffsetDateTime updatedAt) {
 		super();
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
 
-	public Date getCreatedAt() {
+	public OffsetDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(OffsetDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public OffsetDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(OffsetDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 	

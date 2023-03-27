@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tibil.BecknBAP.controller.api.OnSearchApi;
 import com.tibil.BecknBAP.dto.beckn.InlineResponse2001;
 import com.tibil.BecknBAP.dto.beckn.OnSearchBody;
+import com.tibil.BecknBAP.service.internal.OnSearchRequestService;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -29,22 +30,19 @@ public class OnSearchApiController implements OnSearchApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+    private OnSearchRequestService onSearchrequestService;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public OnSearchApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public OnSearchApiController(ObjectMapper objectMapper, HttpServletRequest request, OnSearchRequestService onSearchrequestService) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.onSearchrequestService = onSearchrequestService;
     }
 
     public ResponseEntity<InlineResponse2001> onSearchPost(@Parameter(in = ParameterIn.DEFAULT, description = "TODO", schema=@Schema()) @Valid @RequestBody OnSearchBody body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<InlineResponse2001>(objectMapper.readValue("{\n  \"message\" : {\n    \"ack\" : {\n      \"status\" : \"ACK\"\n    }\n  },\n  \"error\" : {\n    \"path\" : \"path\",\n    \"code\" : \"code\",\n    \"type\" : \"CONTEXT-ERROR\",\n    \"message\" : \"message\"\n  }\n}", InlineResponse2001.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<InlineResponse2001>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            return onSearchrequestService.processExternalRequest(body);
         }
 
         return new ResponseEntity<InlineResponse2001>(HttpStatus.NOT_IMPLEMENTED);
