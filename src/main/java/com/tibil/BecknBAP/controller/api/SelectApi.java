@@ -6,6 +6,7 @@
 package com.tibil.BecknBAP.controller.api;
 
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tibil.BecknBAP.dto.beckn.InlineResponse200;
 import com.tibil.BecknBAP.dto.beckn.SelectBody;
-import com.tibil.BecknBAP.dto.internal.SelectedItems;
+import com.tibil.BecknBAP.dto.internal.SelectedItem;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -39,7 +40,7 @@ public interface SelectApi {
         produces = { "application/json" }, 
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<InlineResponse200> selectPost(@Parameter(in = ParameterIn.DEFAULT, description = "TODO", schema=@Schema()) @Valid @RequestBody SelectedItems body);
+    String selectPost(@Parameter(in = ParameterIn.DEFAULT, description = "TODO", schema=@Schema()) @Valid @RequestBody SelectedItem body);
 
 }
 

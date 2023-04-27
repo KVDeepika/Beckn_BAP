@@ -38,7 +38,7 @@ public interface SearchApi {
         produces = { "application/json" }, 
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<InlineResponse200> searchPost(@Parameter(in = ParameterIn.DEFAULT, description = "BAP searches for services", schema=@Schema()) @Valid @RequestBody Search body);
+    String searchPost(@Parameter(in = ParameterIn.DEFAULT, description = "BAP searches for services", schema=@Schema()) @Valid @RequestBody Search body);
 
 }
 

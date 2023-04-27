@@ -2,6 +2,7 @@ package com.tibil.BecknBAP.controller;
 
 import java.io.IOException;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tibil.BecknBAP.controller.api.SelectApi;
 import com.tibil.BecknBAP.dto.beckn.InlineResponse200;
-import com.tibil.BecknBAP.dto.internal.SelectedItems;
+import com.tibil.BecknBAP.dto.internal.SelectedItem;
+import com.tibil.BecknBAP.service.internal.SelectRequestService;
+
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -29,25 +32,29 @@ public class SelectApiController implements SelectApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+    private final SelectRequestService selectService;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public SelectApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public SelectApiController(ObjectMapper objectMapper, HttpServletRequest request,SelectRequestService selectService) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.selectService = selectService;
     }
 
-    public ResponseEntity<InlineResponse200> selectPost(@Parameter(in = ParameterIn.DEFAULT, description = "TODO", schema=@Schema()) @Valid @RequestBody SelectedItems body) {
+    public String selectPost(@Parameter(in = ParameterIn.DEFAULT, description = "TODO", schema=@Schema()) @Valid @RequestBody SelectedItem body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<InlineResponse200>(objectMapper.readValue("{\n  \"message\" : {\n    \"ack\" : {\n      \"status\" : \"ACK\"\n    }\n  },\n  \"error\" : {\n    \"path\" : \"path\",\n    \"code\" : \"code\",\n    \"type\" : \"CONTEXT-ERROR\",\n    \"message\" : \"message\"\n  }\n}", InlineResponse200.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<InlineResponse200>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+			return selectService.processInternalRequest(body);
+
+//            try {
+//                return new ResponseEntity<InlineResponse200>(objectMapper.readValue("{\n  \"message\" : {\n    \"ack\" : {\n      \"status\" : \"ACK\"\n    }\n  },\n  \"error\" : {\n    \"path\" : \"path\",\n    \"code\" : \"code\",\n    \"type\" : \"CONTEXT-ERROR\",\n    \"message\" : \"message\"\n  }\n}", InlineResponse200.class), HttpStatus.NOT_IMPLEMENTED);
+//            } catch (IOException e) {
+//                log.error("Couldn't serialize response for content type application/json", e);
+//                return new ResponseEntity<InlineResponse200>(HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
         }
 
-        return new ResponseEntity<InlineResponse200>(HttpStatus.NOT_IMPLEMENTED);
+        return " ";
     }
 
 }

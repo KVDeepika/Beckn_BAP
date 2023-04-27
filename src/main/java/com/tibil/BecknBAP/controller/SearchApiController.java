@@ -39,13 +39,13 @@ public class SearchApiController implements SearchApi {
         this.service = service;
     }
 
-    public ResponseEntity<InlineResponse200> searchPost(@Parameter(in = ParameterIn.DEFAULT, description = "BAP searches for services", schema=@Schema()) @Valid @RequestBody Search body) {
+    public String searchPost(@Parameter(in = ParameterIn.DEFAULT, description = "BAP searches for services", schema=@Schema()) @Valid @RequestBody Search body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
 			return service.processInternalRequest(body);
 			//return new ResponseEntity<InlineResponse200>(objectMapper.readValue("{\n  \"message\" : {\n    \"ack\" : {\n      \"status\" : \"ACK\"\n    }\n  }}", InlineResponse200.class), HttpStatus.OK);
         }
-        return new ResponseEntity<InlineResponse200>(HttpStatus.NOT_IMPLEMENTED);
+        return " ";
     }
 
 }

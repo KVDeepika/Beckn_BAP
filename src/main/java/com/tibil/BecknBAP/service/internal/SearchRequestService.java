@@ -44,10 +44,10 @@ public class SearchRequestService implements ProcessInternalRequestService {
 	}
 
 	@Override
-	public ResponseEntity<InlineResponse200> processInternalRequest(Object requestBody) {
+	public String processInternalRequest(Object requestBody) {
 
 		Search inputBody = (Search) requestBody;
-		ServiceUtils utils = new ServiceUtils();
+		ServiceUtils utils = new ServiceUtils(objectMapper);
 
 		Item item = new Item().descriptor(new Descriptor().name(inputBody.getDesignation()));
 		HashMap<String, Object> tags = new HashMap<String, Object>();
@@ -101,7 +101,7 @@ public class SearchRequestService implements ProcessInternalRequestService {
 		}
 		
 		serviceRequestFlowRepository.save(flow);
-		return response;
+		return searchBody.getContext().getTransactionId();
 
 	}
 

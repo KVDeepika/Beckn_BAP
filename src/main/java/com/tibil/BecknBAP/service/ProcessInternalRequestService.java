@@ -9,6 +9,9 @@ public interface ProcessInternalRequestService {
 	
 	public static final RestTemplate restTemplate = new RestTemplate();
 	
-	public ResponseEntity<InlineResponse200> processInternalRequest(Object requestBody);
+	public String processInternalRequest(Object requestBody);
+
+	
+	//public ResponseEntity<InlineResponse200> processInternalRequest(Object requestBody);
 
 }

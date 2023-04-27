@@ -62,6 +62,10 @@ public class Order {
 
 	@JsonProperty("state")
 	private StateEnum state = null;
+	
+	@JsonProperty("item")
+	private Item item = null;
+
 
 	@JsonProperty("provider")
 	private Provider provider = null;
@@ -149,6 +153,22 @@ public class Order {
 
 	public void setProvider(Provider provider) {
 		this.provider = provider;
+	}
+	
+	public Order item(Item item) {
+		this.item = item;
+		return this;
+	}
+	
+	@Schema(description = "")
+
+	@Valid
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 	public Order documents(List<Document> documents) {
@@ -315,7 +335,7 @@ public class Order {
 		}
 		Order order = (Order) o;
 		return Objects.equals(this.id, order.id) && Objects.equals(this.state, order.state)
-				&& Objects.equals(this.provider, order.provider) && Objects.equals(this.documents, order.documents)
+				&& Objects.equals(this.provider, order.provider) && Objects.equals(this.item, order.item)&& Objects.equals(this.documents, order.documents)
 				&& Objects.equals(this.billing, order.billing) && Objects.equals(this.fulfillment, order.fulfillment)
 				&& Objects.equals(this.quote, order.quote) && Objects.equals(this.payment, order.payment)
 				&& Objects.equals(this.createdAt, order.createdAt) && Objects.equals(this.updatedAt, order.updatedAt);
@@ -323,7 +343,7 @@ public class Order {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, state, provider, documents, billing, fulfillment, quote, payment, createdAt, updatedAt);
+		return Objects.hash(id, state, provider, item,documents, billing, fulfillment, quote, payment, createdAt, updatedAt);
 	}
 
 	@Override
@@ -334,6 +354,8 @@ public class Order {
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    state: ").append(toIndentedString(state)).append("\n");
 		sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+		sb.append("    item: ").append(toIndentedString(item)).append("\n");
+
 		sb.append("    documents: ").append(toIndentedString(documents)).append("\n");
 		sb.append("    billing: ").append(toIndentedString(billing)).append("\n");
 		sb.append("    fulfillment: ").append(toIndentedString(fulfillment)).append("\n");
@@ -355,4 +377,6 @@ public class Order {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
+	
 }

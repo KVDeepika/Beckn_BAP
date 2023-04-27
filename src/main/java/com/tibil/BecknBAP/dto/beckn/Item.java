@@ -1,5 +1,6 @@
 package com.tibil.BecknBAP.dto.beckn;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ import jakarta.validation.Valid;
 
 public class Item {
 	@JsonProperty("id")
-	private String id = null;
+	private List<ItemId> id = null;
 
 	@JsonProperty("parent_item_id")
 	private String parentItemId = null;
@@ -59,8 +60,8 @@ public class Item {
 	@JsonProperty("tags")
 	private Tags tags = null;
 
-	public Item id(String id) {
-		this.id = id;
+	public Item id(List<ItemId> list) {
+		this.id = list;
 		return this;
 	}
 
@@ -72,11 +73,11 @@ public class Item {
 	 **/
 	@Schema(description = "This is the most unique identifier of a service item. An example of an Item ID could be the SKU of a product.")
 
-	public String getId() {
+	public List<ItemId> getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(List<ItemId> id) {
 		this.id = id;
 	}
 
